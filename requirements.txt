@@ -3,4 +3,3 @@ selenium
 allure-pytest
 psycopg2-binary
 requests
-json
