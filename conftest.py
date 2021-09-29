@@ -7,12 +7,12 @@ import pytest
 
 @pytest.fixture
 def browser():
-    # chrome_options = webdriver.ChromeOptions()
-    # chrome_options.add_argument('--no-sandbox')
-    # chrome_options.add_argument('--headless')
-    # chrome_options.add_argument('--disable-gpu')
-    # browser = webdriver.Chrome("./chromedriver 3", chrome_options=chrome_options)
-    browser = webdriver.Chrome("./chromedriver 3")
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    browser = webdriver.Chrome("./chromedriver 3", chrome_options=chrome_options)
+    # browser = webdriver.Chrome("./chromedriver 3")
     browser.implicitly_wait(5)
     browser.maximize_window()
     yield browser
