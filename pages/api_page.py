@@ -6,13 +6,19 @@ class Api:
 
     def __init__(self):
         self.base_url = "https://petstore.swagger.io/v2"
-        self.id = 890
+        self.id = 700
         self.pet_name = "NAME890"
         self.pet_name_new = "Minna"
 
     def add_new_pet(self):
         add_pet_url = self.base_url + "/pet"
-        data_add_pet = {"id": self.id, "name": self.pet_name, "status": "available"}
+        # data_add_pet = {"id": self.id, "name": self.pet_name, "status": "available"}
+        data_add_pet = {"id": self.id,
+                        "category": {"id": 0, "name": "string"},
+                        "name": self.pet_name,
+                        "photoUrls": ["string"],
+                        "tags": [{"id": 0, "name": "string"}],
+                        "status": "available"}
         headers_add_pet = {'accept': 'application/json', 'content-type': 'application/json'}
         response = requests.post(add_pet_url, headers=headers_add_pet, data=json.dumps(data_add_pet))
         status_code = response.status_code
@@ -41,5 +47,5 @@ class Api:
         headers_check_updated_name = {'accept': 'application/json'}
         response = requests.get(check_updated_name, headers=headers_check_updated_name)
         json_response = response.json()
-        json_response = json_response['name']
-        assert json_response == self.pet_name_new, f'{json_response} not eq {self.pet_name_new}'
+        json_response_1 = json_response['name']
+        assert json_response_1 == self.pet_name_new, f'{json_response_1} not eq {self.pet_name_new}'

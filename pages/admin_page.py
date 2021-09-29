@@ -1,6 +1,5 @@
 from pages.base_page import BasePage
 from locators.Admin_Page_Locators import AdminPageLocators
-import psycopg2
 
 
 class AdminPage(BasePage):
@@ -21,28 +20,6 @@ class AdminPage(BasePage):
         password_conf.send_keys(passwd)
         save_button = self.find_element(AdminPageLocators.LOCATOR_SAVE_BUTTON)
         save_button.click()
-
-    def user_is_added(self, user_mame: str):
-        psycopg2.connect(host='localhost',
-                         user='postgres',
-                         password='postgres')
-        conn = psycopg2.connect(dbname='postgres',
-                                user='postgres',
-                                password='postgres',
-                                host='localhost')
-
-        cursor = conn.cursor()
-        query = "SELECT object_repr FROM django_admin_log"
-        cursor.execute(query)
-        users = cursor.fetchall()
-
-        user_list = list(sum(users, ()))
-
-        for i in user_list:
-            if i == user_mame:
-                a = []
-                a.append(i)
-                assert a[0] == user_mame, f'{a[0]} not eq {user_mame}'
 
     def logout(self):
         self.find_element(AdminPageLocators.LOCATOR_LOGOUT_BUTTON).click()

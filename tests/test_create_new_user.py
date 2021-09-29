@@ -2,6 +2,7 @@ from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.admin_page import AdminPage
 from pages.logout_page import LogoutPage
+from helpers.db import DB
 import random
 import allure
 
@@ -10,7 +11,7 @@ PASSWORD = "miadelets" + str(random.randint(1, 100))
 
 
 @allure.feature('Create new user')
-def test_create_new_user(browser):
+def test_create_new_user(browser, connect_disconnect_with_db):
     with allure.step('open main page'):
         main_page = MainPage(browser)
         main_page.open_main_page()
@@ -29,16 +30,13 @@ def test_create_new_user(browser):
     with allure.step('add new user'):
         admin_page = AdminPage(browser)
         admin_page.add_user(USER_NAME, PASSWORD)
-    with allure.step('user is added'):
-        admin_page = AdminPage(browser)
-        admin_page.user_is_added(USER_NAME)
     with allure.step('add permissions for user'):
         admin_page = AdminPage(browser)
         admin_page.add_permission()
-    with allure.step('permissions is added'):
-        admin_page = AdminPage(browser)
-        admin_page.user_is_added(USER_NAME)
-    with allure.step('user logout'):
+    with allure.step('user is on db'):
+        db = DB()
+        db.user_is_added(USER_NAME)
+    with allure.step('admin logout'):
         admin_page = AdminPage(browser)
         admin_page.logout()
     with allure.step('logout page is open'):
@@ -50,9 +48,9 @@ def test_create_new_user(browser):
     with allure.step('user is on login page'):
         login_page = LoginPage(browser)
         login_page.should_be_login_page()
-    with allure.step('user log in again'):
+    with allure.step('new user log in'):
         login_page = LoginPage(browser)
         login_page.login(USER_NAME, PASSWORD)
-    with allure.step('user account is open'):
+    with allure.step('new user account is open'):
         admin_page = AdminPage(browser)
         admin_page.check_user_account(USER_NAME)
