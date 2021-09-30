@@ -7,7 +7,7 @@ class Api:
 
     def __init__(self):
         self.base_url = "https://petstore.swagger.io/v2"
-        self.id = 2022233
+        self.id = 202221113
         self.pet_name = "NAME890"
         self.pet_name_new = "Minna"
 
@@ -34,13 +34,21 @@ class Api:
         assert json_response == self.id, f'{json_response} not found'
 
     def update_pet_name(self):
-        # update_pet_name_url =
-        update_pet_name_url = self.base_url + "/pet/" + str(self.id)
-        new_data_for_pet = 'name=' + self.pet_name_new + '&status=available'
-        headers_update_pet_name = {'accept': 'application/json',
-                                   'content-type': 'application/x-www-form-urlencoded'
-                                   }
-        response = requests.post(update_pet_name_url,  headers=headers_update_pet_name, data=new_data_for_pet)
+        update_pet_name_url = self.base_url + "/pet"
+        new_data_for_pet = {"id": self.id,
+                            "category": {"id": 0, "name": "string"},
+                            "name": self.pet_name_new,
+                            "photoUrls": ["string"],
+                            "tags": [{"id": 0, "name": "string"}],
+                            "status": "available"}
+        headers_update_pet_name = {'accept': 'application/json', 'content-type': 'application/json'}
+        response = requests.put(update_pet_name_url, headers=headers_update_pet_name, data=json.dumps(new_data_for_pet))
+        # update_pet_name_url = self.base_url + "/pet/" + str(self.id)
+        # new_data_for_pet = 'name=' + self.pet_name_new + '&status=available'
+        # headers_update_pet_name = {'accept': 'application/json',
+        #                            'content-type': 'application/x-www-form-urlencoded'
+        #                            }
+        # response = requests.post(update_pet_name_url,  headers=headers_update_pet_name, data=new_data_for_pet)
         status_code = response.status_code
         assert status_code == 200, f'{status_code} invalid status code'
 
@@ -61,3 +69,5 @@ class Api:
     #         pass
     #     else:
     #         assert status_code == 200, f'{status_code} invalid status code'
+
+
