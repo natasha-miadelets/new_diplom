@@ -29,9 +29,19 @@ class Api:
         check_pet_url = self.base_url + "/pet/" + str(self.id)
         headers_check_added_pet = {'accept': 'application/json'}
         response = requests.get(check_pet_url, headers=headers_check_added_pet)
-        json_response = response.json()
-        json_response = json_response['id']
-        assert json_response == self.id, f'{json_response} not found'
+        status_code = response.status_code
+        i = 0
+        while status_code != 200 and i != 5:
+            response = requests.get(check_pet_url, headers=headers_check_added_pet)
+            i += 1
+        return response.json()
+
+        # json_response = json_response['id']
+        # assert json_response == self.id, f'{json_response} not found'
+            # else:
+            #     json_response = response.json()
+            #     json_response = json_response['id']
+            #     assert json_response == self.id, f'{json_response} not found'
 
     def update_pet_name(self):
         update_pet_name_url = self.base_url + "/pet"
@@ -56,9 +66,15 @@ class Api:
         check_updated_name = self.base_url + "/pet/" + str(self.id)
         headers_check_updated_name = {'accept': 'application/json'}
         response = requests.get(check_updated_name, headers=headers_check_updated_name)
-        json_response = response.json()
-        json_response = json_response['name']
-        assert json_response == self.pet_name_new, f'{json_response} not eq {self.pet_name_new}'
+        status_code = response.status_code
+        # json_response = response.json()
+        # json_response = json_response['name']
+        i = 0
+        while status_code != 200 and i != 5:
+            response = requests.get(check_updated_name, headers=headers_check_updated_name)
+            i += 1
+        return response.json()
+        # assert json_response == self.pet_name_new, f'{json_response} not eq {self.pet_name_new}'
 
     # def delete_pet(self):
     #     delete_pet_url = self.base_url + "/pet/" + str(self.id)
@@ -69,5 +85,3 @@ class Api:
     #         pass
     #     else:
     #         assert status_code == 200, f'{status_code} invalid status code'
-
-
