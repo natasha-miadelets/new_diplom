@@ -16,4 +16,3 @@ class AdminPageLocators:
     LOCATOR_LOGOUT_BUTTON = (By.XPATH, "//a[text()='Log out']")
     LOCATOR_CHECK_USERNAME = (By.XPATH, "//div[@id='user-tools']/strong")
     LOCATOR_CHANGE_POSTS = (By.XPATH, "//tr[@class='model-post']/td/a[text()='Change']")
-

@@ -17,4 +17,3 @@ class LoginPage(BasePage):
         password.send_keys(passwd)
         login_button = self.find_element(LoginPageLocators.LOCATOR_LOGIN_BUTTON)
         login_button.click()
-

@@ -19,4 +19,3 @@ class MainPage(BasePage):
     def check_deleted_image(self):
         find_image = self.find_element(MainPageLocators.LOCATOR_FIRST_IMAGE).text
         assert find_image != self.image, f'{self.image} eq {find_image}'
-

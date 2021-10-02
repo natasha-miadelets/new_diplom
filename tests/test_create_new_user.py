@@ -25,11 +25,11 @@ def test_create_new_user(browser, connect_disconnect_with_db):
     with allure.step('admin panel page is open'):
         admin_page = AdminPage(browser)
         admin_page.should_be_admin_page()
-    with allure.step('add new user'):
+    with allure.step('admin add new user'):
         admin_page.add_user(USER_NAME, PASSWORD)
-    with allure.step('add permissions for user'):
+    with allure.step('admin add permissions for new user'):
         admin_page.add_permission()
-    with allure.step('user is on db'):
+    with allure.step('check that new user is on db'):
         db = DB()
         db.user_is_added(USER_NAME)
     with allure.step('admin logout'):
