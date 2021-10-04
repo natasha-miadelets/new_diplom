@@ -31,9 +31,19 @@ class AdminPage(BasePage):
             f'{username} not eq {username_text}'
 
     def add_permission(self):
-        self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).click()
-        self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_SUPERUSER).click()
+        if self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).get_attribute("checked") == None:
+            self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).click()
+        else:
+            pass
+        if self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_SUPERUSER).get_attribute("checked") == None:
+            self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_SUPERUSER).click()
+        else:
+            pass
         self.find_element(AdminPageLocators.LOCATOR_SAVE_BUTTON_2).click()
+        # без проверки статуса чекбокса
+        # self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).click()
+        # self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_SUPERUSER).click()
+        # self.find_element(AdminPageLocators.LOCATOR_SAVE_BUTTON_2).click()
 
     def click_change_post_button(self):
         self.find_element(AdminPageLocators.LOCATOR_CHANGE_POSTS).click()
