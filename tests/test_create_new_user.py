@@ -11,7 +11,7 @@ PASSWORD = "miadelets" + str(random.randint(1, 100))
 
 
 @allure.feature('Create new user')
-def test_create_new_user(browser, connect_disconnect_with_db):
+def test_create_new_user(browser, connect_with_db):
     with allure.step('open main page'):
         main_page = MainPage(browser)
         main_page.open_main_page()
@@ -31,7 +31,8 @@ def test_create_new_user(browser, connect_disconnect_with_db):
         admin_page.add_permission()
     with allure.step('check that new user is on db'):
         db = DB()
-        db.user_is_added(USER_NAME)
+        cursor = connect_with_db
+        db.user_is_added(USER_NAME, cursor)
     with allure.step('admin logout'):
         admin_page.logout()
     with allure.step('logout page is open'):

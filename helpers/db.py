@@ -8,13 +8,15 @@ class DB:
         self.user = 'postgres'
         self.password = 'postgres'
         self.dbname = 'postgres'
-        self.conn = psycopg2.connect(host=self.host, user=self.user, password=self.password)
-        self.cursor = self.conn.cursor()
 
-    def user_is_added(self, user_mame: str):
+    def create_connection(self):
+        conn = psycopg2.connect(dbname='postgres', user='postgres', password='postgres', host='localhost')
+        return conn
+
+    def user_is_added(self, user_mame: str, cursor):
         query = "SELECT object_repr FROM django_admin_log"
-        self.cursor.execute(query)
-        users = self.cursor.fetchall()
+        cursor.execute(query)
+        users = cursor.fetchall()
 
         user_list = list(sum(users, ()))
 
@@ -23,6 +25,3 @@ class DB:
                 a = []
                 a.append(i)
                 assert a[0] == user_mame, f'{a[0]} not eq {user_mame}'
-
-    def close_cursor(self):
-        self.conn.close()

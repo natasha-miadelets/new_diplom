@@ -1,5 +1,5 @@
 import allure
-from pages.api_page import Api
+from helpers.api import Api
 import random
 
 PET_ID = random.randint(1, 9000000)

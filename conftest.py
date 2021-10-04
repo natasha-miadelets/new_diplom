@@ -1,6 +1,3 @@
-import os
-from datetime import datetime
-
 import allure
 from helpers.db import DB
 from selenium import webdriver
@@ -22,10 +19,12 @@ def browser():
 
 
 @pytest.fixture
-def connect_disconnect_with_db():
+def connect_with_db():
     db = DB()
-    yield
-    db.close_cursor()
+    conn = db.create_connection()
+    cursor = conn.cursor()
+    yield cursor
+    cursor.close()
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
@@ -42,9 +41,3 @@ def pytest_runtest_makereport(item):
             allure.attach(browser.get_screenshot_as_png(), "Screenshot", attachment_type=allure.attachment_type.PNG)
         except Exception as e:
             print(f'Failed to make screensot: {e}')
-
-# @pytest.hookimpl(tryfirst=True)
-# def pytest_configure(config):
-#     if not os.path.exists('reports'):
-#         os.makedirs('reports')
-#     config.option.htmlpath = f'html_reports/ {datetime.now().strftime("%d-%m-%Y %H-%M-%S")}.html'
