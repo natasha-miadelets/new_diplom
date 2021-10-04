@@ -13,7 +13,6 @@ def test_delete_image(browser):
     with allure.step('check first post date'):
         main_page.first_image_date()
     with allure.step('click on the go to admin button'):
-        main_page = MainPage(browser)
         main_page.open_login_page()
     with allure.step('user is on login page'):
         login_page = LoginPage(browser)

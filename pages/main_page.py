@@ -14,8 +14,8 @@ class MainPage(BasePage):
         self.find_element(MainPageLocators.LOCATOR_GO_TO_ADMIN_BUTTON).click()
 
     def first_image_date(self):
-        self.image = self.find_element(MainPageLocators.LOCATOR_FIRST_IMAGE).text
+        self.image = self.find_element(MainPageLocators.LOCATOR_FIRST_IMAGE).get_attribute("src")
 
     def check_deleted_image(self):
-        find_image = self.find_element(MainPageLocators.LOCATOR_FIRST_IMAGE).text
+        find_image = self.find_element(MainPageLocators.LOCATOR_FIRST_IMAGE).get_attribute("src")
         assert find_image != self.image, f'{self.image} eq {find_image}'
