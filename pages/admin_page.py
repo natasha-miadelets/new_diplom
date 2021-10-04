@@ -33,12 +33,8 @@ class AdminPage(BasePage):
     def add_permission(self):
         if self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).get_attribute("checked") == None:
             self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).click()
-        else:
-            pass
         if self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_SUPERUSER).get_attribute("checked") == None:
             self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_SUPERUSER).click()
-        else:
-            pass
         self.find_element(AdminPageLocators.LOCATOR_SAVE_BUTTON_2).click()
         # без проверки статуса чекбокса
         # self.find_element(AdminPageLocators.LOCATOR_CHECKBOX_STAFF).click()
